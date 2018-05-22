@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:8-node-browsers
+    working_directory: ~/spring-music
     steps:
       - checkout
       - run:
@@ -15,9 +16,10 @@ jobs:
   deploy:
     docker:
       - image: govau/cf-cli
+    working_directory: ~/spring-music
     steps:
       - attach_workspace:
-          root: .
+          at: ~/spring-music
       - run:
           name: Deploying to cloud.gov.au
           command: ./scripts/deploy.sh
