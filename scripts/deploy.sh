@@ -17,6 +17,8 @@ else
   cf api $CF_API_STAGING
   cf auth $CF_USERNAME "$CF_PASSWORD_STAGING"
 fi
+cf target -o $CF_ORG
+cf target -s $CF_SPACE
 
 # push our code to cloud foundry
 
