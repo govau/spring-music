@@ -6,9 +6,16 @@ jobs:
     working_directory: ~/spring-music
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - gradle-v0-{{ checksum "build.gradle" }}
       - run:
           name: Building the application
-          command: ./gradlew clean assemble
+          command: ./gradlew clean test assemble
+      - save_cache:
+          key: gradle-v0-{{ checksum "build.gradle" }}
+          paths:
+            - ~/.gradle/caches
       - persist_to_workspace:
           root: .
           paths:
