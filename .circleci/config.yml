@@ -3,23 +3,21 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:8-node-browsers
-    working_directory: /app
     steps:
       - checkout
       - run:
           name: Building the application
           command: ./gradlew clean assemble
       - persist_to_workspace:
-          root: /app
+          root: .
           paths:
             - .
   deploy:
     docker:
       - image: govau/cf-cli
-    working_directory: /app
     steps:
       - attach_workspace:
-          at: /app
+          root: .
       - run:
           name: Deploying to cloud.gov.au
           command: ./scripts/deploy.sh
