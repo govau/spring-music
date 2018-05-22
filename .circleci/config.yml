@@ -11,7 +11,7 @@ jobs:
             - gradle-{{ checksum "build.gradle" }}
       - run:
           name: Building the application
-          command: ./gradlew clean assemble
+          command: ./gradlew clean test assemble
       - save_cache:
           key: gradle-{{ checksum "build.gradle" }}
           paths:
